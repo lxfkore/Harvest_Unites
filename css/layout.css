@@ -82,8 +82,9 @@
 
 .navbar__logo-text {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   line-height: 1.2;
+  gap: 0.4rem;
 }
 
 .navbar__logo-name {
@@ -93,7 +94,7 @@
 }
 
 .navbar__logo-sub {
-  font-size: 0.65rem;
+  font-size: 0.56rem;
   font-weight: var(--weight-regular);
   color: var(--color-text-mid);
 }
