@@ -100,7 +100,7 @@
  
     let currentIndex  = 0;
     let autoplayTimer = null;
-    const AUTOPLAY_DELAY = 3000; // ms
+    const AUTOPLAY_DELAY = 2000; // ms
  
     function goToSlide(nextIndex) {
       if (nextIndex === currentIndex) return;

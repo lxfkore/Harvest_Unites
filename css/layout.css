@@ -2,10 +2,10 @@
    layout.css — Navbar, Footer, Shared Layout Components
    ========================================================================== */
 
-
 /* --------------------------------------------------------------------------
    NAVBAR
    -------------------------------------------------------------------------- */
+
 .navbar {
   position: fixed;
   top: 0;
@@ -72,13 +72,6 @@
   height: 30px;
   object-fit: contain;
 }
-
-/* .navbar__logo-icon span {
-  font-size: var(--text-sm);
-  font-weight: var(--weight-extrabold);
-  color: var(--color-white);
-  letter-spacing: 0.5px;
-} */
 
 .navbar__logo-text {
   display: flex;

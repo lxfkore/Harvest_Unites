@@ -137,17 +137,6 @@
   filter: drop-shadow(0 12px 24px rgba(0,0,0,0.15));
 }
 
-.hero__slide-label {
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
-  color: var(--color-green-dark);
-  background: rgba(255,255,255,0.85);
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-full);
-  letter-spacing: 0.3px;
-  box-shadow: var(--shadow-sm);
-}
-
 /* ---- Slide Dots ---- */
 .hero__dots {
   position: absolute;
@@ -178,6 +167,14 @@
 
 .hero__dot:hover:not(.active) {
   background-color: rgba(26,107,47,0.5);
+}
+
+.btn--dark {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+.btn--dark:hover {
+  box-shadow: 0 14px 35px rgba(0,0,0,0.30);
 }
 
 
@@ -313,13 +310,15 @@
   color: #000000;
   border-bottom: 2px solid rgba(0, 0, 0, 0.6);
   padding-bottom: 2px;
-  transition: border-color var(--transition-fast),
+  transition: transform var(--transition-fast),
+              border-color var(--transition-fast),
               gap var(--transition-fast);
 }
 
 .brand-section__cta:hover {
   border-bottom-color: var(--color-black);
   gap: var(--space-4);
+  transform: scale(1.05);
 }
 
 
