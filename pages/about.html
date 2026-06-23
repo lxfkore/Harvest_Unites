@@ -19,44 +19,11 @@
 </head>
 <body>
 
-  <!-- ========== NAVBAR (dark variant) ========== -->
-  <header class="navbar navbar--dark" id="navbar">
-    <div class="navbar__inner container">
-
-      <!-- Logo -->
-      <a href="../index.html" class="navbar__logo">
-        <img src="../assets/images/logo2.png" alt="Harvest Unites Logo" class="navbar__logo-img" />
-        <div class="navbar__logo-text">
-          <span class="navbar__logo-name">Harvest Unites Enterprise Sdn. Bhd.</span>
-          <span class="navbar__logo-sub"><em>(862199-X)</em></span>
-        </div>
-      </a>
-
-      <!-- Desktop Nav Links -->
-      <nav class="navbar__nav" aria-label="Main navigation">
-        <a href="about.html" class="navbar__link active">About Us</a>
-        <a href="products.html" class="navbar__link">Our Products</a>
-        <a href="behind-the-scenes.html" class="navbar__link">Behind the Scenes</a>
-        <a href="contact.html" class="navbar__link">Contact Us</a>
-      </nav>
-
-      <!-- Mobile Hamburger -->
-      <button class="navbar__hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-    </div>
-
-    <!-- Mobile Dropdown Menu -->
-    <nav class="navbar__mobile-menu" id="mobileMenu" aria-hidden="true">
-      <a href="about.html" class="navbar__mobile-link active">About Us</a>
-      <a href="products.html" class="navbar__mobile-link">Our Products</a>
-      <a href="behind-the-scenes.html" class="navbar__mobile-link">Behind the Scenes</a>
-      <a href="contact.html" class="navbar__mobile-link">Contact Us</a>
-    </nav>
-  </header>
+  <div
+    id="navbar-root"
+    data-navbar-variant="dark"
+    data-base="../"
+  ></div>
 
   <!-- ========== ABOUT US PAGE ========== -->
   <main class="about-page">
@@ -164,6 +131,7 @@
   </a>
 
   <!-- JS -->
+  <script src="../js/components/navbar.js"></script>
   <script src="../js/main.js"></script>
 
 </body>
