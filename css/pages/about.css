@@ -1,0 +1,143 @@
+/* ==========================================================================
+   about.css — About Us Page Styles
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   PAGE WRAPPER
+   Fills the full viewport height with the background image
+   -------------------------------------------------------------------------- */
+.about-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: var(--navbar-height);
+}
+
+
+/* --------------------------------------------------------------------------
+   BACKGROUND IMAGE + OVERLAY
+   -------------------------------------------------------------------------- */
+.about-page__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('../../assets/images/bg3.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.about-page__overlay {
+  position: absolute;
+  inset: 0;
+  /* Subtle dark overlay to keep text readable over the field photo */
+  background: linear-gradient(
+    135deg,
+    rgba(5, 25, 10, 0.27) 0%,
+    rgba(5, 25, 10, 0.40) 100%
+  );
+}
+
+
+/* --------------------------------------------------------------------------
+   PAGE CONTENT
+   -------------------------------------------------------------------------- */
+.about-page__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  padding-block: var(--space-20);
+}
+
+
+/* ---- Page Heading: top-right alignment ---- */
+.about-page__header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.about-page__title {
+  font-size: clamp(var(--text-2xl), 9vw, 7rem);
+  font-weight: var(--weight-extrabold);
+  color: var(--color-white);
+  line-height: var(--line-tight);
+  letter-spacing: -1px;
+}
+
+
+/* ---- Body Text + CTA ---- */
+.about-page__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-10);
+  max-width: 860px;
+  margin-inline: auto;
+  text-align: justify;
+}
+
+.about-page__text {
+  font-size: var(--text-md);
+  font-weight: var(--weight-light);
+  color: rgba(255, 255, 255, 0.92);
+  line-height: var(--line-relaxed);
+}
+
+.about-page__text strong {
+  font-weight: var(--weight-semibold);
+  color: var(--color-white);
+}
+
+/* CTA Button — uses .btn--outline from base.css, just needs sizing */
+.about-page__cta {
+  font-size: var(--text-md);
+  padding: var(--space-4) var(--space-12);
+  border-radius: var(--radius-lg);   /* less pill, more rounded rectangle like in design */
+}
+
+
+/* --------------------------------------------------------------------------
+   DARK NAVBAR OVERRIDES for About page
+   The navbar starts dark since the bg is always dark on this page
+   -------------------------------------------------------------------------- */
+.navbar--dark.scrolled {
+  background-color: rgba(10, 50, 20, 0.96);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .about-page__header {
+    justify-content: center;
+  }
+
+  .about-page__title {
+    text-align: center;
+  }
+
+  .about-page__watermark {
+    justify-content: center;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-page__body {
+    text-align: left;
+  }
+
+  .about-page__cta {
+    width: 100%;
+    justify-content: center;
+    padding-inline: var(--space-6);
+  }
+}
