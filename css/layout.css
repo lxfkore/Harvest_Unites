@@ -31,7 +31,17 @@
 
 /* Dark navbar variant */
 .navbar--dark {
-  background-color: rgba(26, 107, 47, 0.92);
+  background-color: rgba(26, 107, 47, 0.92); /* Same green-dark as base */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: transparent;
+}
+
+/* ✅ THIS IS THE FIX: Keep dark color when scrolled */
+.navbar--dark.scrolled {
+  background-color: rgba(26, 107, 47, 0.98); /* Slightly more opaque dark green */
+  border-bottom-color: rgba(255, 255, 255, 0.1); /* Subtle light border only */
+  box-shadow: var(--shadow-sm);
 }
 
 .navbar--dark .navbar__logo-name,
@@ -47,6 +57,22 @@
 
 .navbar--dark .navbar__hamburger span {
   background-color: var(--color-white);
+}
+
+/* Also make mobile menu match dark theme */
+.navbar--dark .navbar__mobile-menu {
+  background-color: var(--color-green-dark);
+  border-top-color: rgba(255, 255, 255, 0.15);
+}
+
+.navbar--dark .navbar__mobile-link {
+  color: var(--color-white);
+}
+
+.navbar--dark .navbar__mobile-link:hover,
+.navbar--dark .navbar__mobile-link.active {
+  color: var(--color-green-blob);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 /* Inner layout */

@@ -1,6 +1,7 @@
 /* ==========================================================================
    main.js — Global JavaScript
-   Handles: navbar scroll state, hamburger menu, active nav link
+   Handles: navbar scroll state, hamburger menu, active nav link,
+            hero slideshow, and product image modal
    ========================================================================== */
 
 (function () {
@@ -89,8 +90,9 @@
 
   setActiveNavLink();
 
+
   /* --------------------------------------------------------------------------
-     4. HERO SLIDESHOW
+     HERO SLIDESHOW
      -------------------------------------------------------------------------- */
   const slides    = document.querySelectorAll('.hero__slide');
   const dots      = document.querySelectorAll('.hero__dot');
@@ -181,5 +183,89 @@
     // Kick off
     startAutoplay();
   }
+
+
+  /* --------------------------------------------------------------------------
+     NEW: Product Image Modal
+     -------------------------------------------------------------------------- */
+  window.openImageModal = function (button) {
+    // Find the related product row and image
+    const productRow = button.closest('.product-row');
+    if (!productRow) return;
+
+    const imageSrc = productRow.querySelector('img').src;
+    const imageAlt = productRow.querySelector('img').alt;
+
+    // Create modal overlay
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      display: grid;
+      place-items: center;
+      z-index: 99999;
+      padding: 1.5rem;
+      cursor: pointer;
+    `;
+
+    // Modal content
+    modal.innerHTML = `
+      <div style="position: relative; max-width: 92vw; max-height: 92vh;">
+        <img 
+          src="${imageSrc}" 
+          alt="${imageAlt}" 
+          style="width: 100%; height: auto; max-height: 90vh; object-fit: contain; border-radius: 8px; box-shadow: 0 5px 25px rgba(0,0,0,0.3);"
+        >
+        <button 
+          aria-label="Close image"
+          style="
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            border: none;
+            background: #ffffff;
+            color: #111111;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            line-height: 1;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+          "
+        >&times;</button>
+      </div>
+    `;
+
+    // Close when clicking overlay or close button
+    function closeModal() {
+      modal.remove();
+      document.body.style.overflow = '';
+    }
+
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal || e.target.tagName === 'BUTTON') {
+        closeModal();
+      }
+    });
+
+    // Allow closing with Escape key
+    document.addEventListener('keydown', function closeOnEsc(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+        document.removeEventListener('keydown', closeOnEsc);
+      }
+    });
+
+    // Lock background scroll
+    document.body.style.overflow = 'hidden';
+
+    // Add modal to page
+    document.body.appendChild(modal);
+  };
 
 })();
