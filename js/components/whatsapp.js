@@ -3,7 +3,8 @@
   
   const whatsapp = `
     <a
-      href="https://wa.me/60125002383"
+      id="whatsappFloat"
+      href="https://wa.me/60125006389"
       class="whatsapp-float"
       target="_blank"
       rel="noopener noreferrer"
@@ -20,4 +21,22 @@
   if (!document.querySelector('.whatsapp-float')) {
     document.body.insertAdjacentHTML('beforeend', whatsapp);
   }
+
+  // Randomizer list for different contact numbers.
+  const whatsappBtn = document.getElementById('whatsappFloat');
+
+if (whatsappBtn) {
+  const whatsappNumbers = [
+    "60125006389",
+    "60125002383",
+    "60125173236"
+  ];
+
+  whatsappBtn.addEventListener('click', function () {
+    const pick = whatsappNumbers[Math.floor(Math.random() * whatsappNumbers.length)];
+    whatsappBtn.href = `https://wa.me/${pick}`;
+  });
+}
+
+
   })();
