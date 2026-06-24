@@ -20,48 +20,13 @@
 .bts-page__bg {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: -1;
   background-image: url('../../assets/images/bg4.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
-
-
-/* --------------------------------------------------------------------------
-   DECORATIVE GREEN BLOBS
-   -------------------------------------------------------------------------- */
-.bts-blob {
-  position: absolute;
-  border-radius: var(--radius-full);
   pointer-events: none;
-  z-index: 1;
 }
-
-.bts-blob--top-left {
-  width: clamp(160px, 22vw, 300px);
-  height: clamp(160px, 22vw, 300px);
-  background: radial-gradient(circle, rgba(126,217,87,0.70) 0%, rgba(126,217,87,0) 70%);
-  top: -6%;
-  left: -5%;
-}
-
-.bts-blob--top-right {
-  width: clamp(200px, 28vw, 380px);
-  height: clamp(200px, 28vw, 380px);
-  background: radial-gradient(circle, rgba(126,217,87,0.55) 0%, rgba(126,217,87,0) 70%);
-  top: -4%;
-  right: -6%;
-}
-
-.bts-blob--bot-right {
-  width: clamp(140px, 18vw, 240px);
-  height: clamp(140px, 18vw, 240px);
-  background: radial-gradient(circle, rgba(94,189,60,0.45) 0%, rgba(94,189,60,0) 70%);
-  bottom: 8%;
-  right: -3%;
-}
-
 
 /* --------------------------------------------------------------------------
    PAGE CONTENT
