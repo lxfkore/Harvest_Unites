@@ -453,8 +453,16 @@
         submitBtn.setAttribute('aria-busy', 'true');
         submitBtn.textContent = 'Opening email…';
       }
- 
-      window.location.href = mailto;
+
+      // Build direct Gmail web compose URL (matching product page logic)
+      const recipientEmail = "harvest.unites@gmail.com";
+      const gmailComposeLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipientEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      // Open Gmail new tab
+      const newGmailTab = window.open(gmailComposeLink, "_blank", "noopener,noreferrer");
+      // Fallback for popup blockers / users without Gmail
+      if (!newGmailTab) {
+        window.location.href = mailto;
+      }
  
       // Show success banner + reset after short delay
       setTimeout(function () {
