@@ -1,9 +1,8 @@
 # TODO
 
-- [ ] Create reusable footer component `js/components/footer.js` (inject into `#footer-root`, support `data-base`, include floating WhatsApp)
-- [ ] Update `pages/about.html` to remove inline footer + floating WhatsApp, add `#footer-root` placeholder and load `../js/components/footer.js`
-- [ ] Update `pages/products.html` to remove inline footer + floating WhatsApp, add `#footer-root` placeholder and load `../js/components/footer.js`
-- [ ] Update `pages/bts.html` to remove inline footer + floating WhatsApp, add `#footer-root` placeholder and load `../js/components/footer.js`
-- [ ] Update `pages/contact.html` to remove inline footer + floating WhatsApp, add `#footer-root` placeholder and load `../js/components/footer.js`
-- [ ] Sanity check: ensure no duplicate footer markup remains in those pages
+- [ ] Update `pages/products.html` to add dot indicators + hooks for two variant sliders (PP woven bags 4 variants, Kraft paper bag 2 variants).
+- [ ] Update `css/pages/products.css` to style the new dot indicator UI and add image slide/transition styles.
+- [ ] Update `pages/products.html` inline script to auto-slide images on interval for both sliders, while keeping arrow navigation working (and syncing active dot).
+- [ ] Ensure `View Image` modal still opens the currently active image.
+- [ ] Quick manual test: load `pages/products.html`, verify auto-slide + arrow + dots for both variant groups.
 
