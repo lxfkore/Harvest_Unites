@@ -36,11 +36,16 @@
   display: grid;
   grid-template-columns: 220px 1fr;
   gap: 2rem;
+
   padding: 2rem;
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   border-bottom: 1px solid #e5e7eb;
+}
+
+.product-row__image {
+  position: relative;
 }
 
 .product-row__image img {
@@ -49,6 +54,41 @@
   object-fit: contain;
   max-height: 220px;
 }
+
+/* PP Woven Bag variant navigation */
+.pp-variant-nav {
+  position: absolute;
+  top: auto;
+  bottom: -40px;
+  transform: translateY(0);
+
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(17, 24, 39, 0.75);
+  color: #ffffff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.pp-variant-nav:hover {
+  background: rgba(0, 0, 0, 0.85);
+  transform: translateY(0) scale(1.05);
+}
+
+
+.pp-variant-nav--prev {
+  left: 8px;
+}
+
+.pp-variant-nav--next {
+  right: 8px;
+}
+
 
 .product-row__name {
   font-size: 1.3rem;

@@ -39,27 +39,30 @@
       <!-- Product List -->
       <div class="products-list">
 
-        <!-- PP Woven Bag -->
-        <div class="product-row">
+        <!-- PP Woven Bag (4 Variants) -->
+        <div class="product-row" id="pp-woven-bag-row">
           <div class="product-row__image">
-            <img src="../assets/images/PP Woven Bag.png" alt="PP Woven Bag" loading="lazy" />
+            <button class="pp-variant-nav pp-variant-nav--prev" type="button" aria-label="Previous PP Woven Bag variant">←</button>
+            <img id="pp-variant-image" src="../assets/images/Laminated PP Woven Bag.png" alt="PP Woven Bag (Laminated)" loading="lazy" />
+            <button class="pp-variant-nav pp-variant-nav--next" type="button" aria-label="Next PP Woven Bag variant">→</button>
           </div>
           <div class="product-row__info">
-            <h2 class="product-row__name">PP Woven Bag (Original)</h2>
-            <ul class="product-row__specs">
+            <h2 class="product-row__name" id="pp-variant-title">PP Woven Bag (Laminated)</h2>
+            <ul class="product-row__specs" id="pp-variant-specs">
               <li><strong>Colors Available:</strong> Blue, Green, White</li>
               <li><strong>Size:</strong> 26"×40" / 22"×34" / 20"×30"</li>
               <li><strong>Structure:</strong> Plain open top design</li>
               <li><strong>Lips:</strong> Open Top (Sewn or Heat Sealed)</li>
-              <li><strong>Surface:</strong> Plain / Can be printed</li>
+              <li><strong>Surface:</strong> Laminated</li>
               <li><strong>Material:</strong> High strength polypropylene woven fabric</li>
             </ul>
             <div class="product-row__actions">
-              <button class="btn btn--dark" onclick="openImageModal(this)">← Laminated →</button>
-              <a href="mailto:harvest.unites@gmail.com?subject=Enquiry: PP Woven Bag" class="product-row__link">Send Email Enquiry →</a>
+              <button class="btn btn--dark" onclick="openImageModal(this)" type="button">View Image</button>
+              <a id="pp-variant-enquiry-link" href="mailto:harvest.unites@gmail.com?subject=Enquiry: PP Woven Bag (Laminated)" class="product-row__link">Send Email Enquiry →</a>
             </div>
           </div>
         </div>
+
 
         <!-- One Ton Jumbo Bag -->
         <div class="product-row">
@@ -203,25 +206,28 @@
           </div>
         </div>
 
-        <!-- Kraft Paper Bag -->
-        <div class="product-row">
+        <!-- Kraft Paper Bag (2 Variants) -->
+        <div class="product-row" id="kraft-paper-bag-row">
           <div class="product-row__image">
-            <img src="../assets/images/Kraft Paper Bag.png" alt="Kraft Paper Bag" loading="lazy" />
+            <button class="pp-variant-nav pp-variant-nav--prev" type="button" aria-label="Previous Kraft Paper Bag variant">←</button>
+            <img id="kraft-variant-image" src="../assets/images/Kraft Paper Bag.png" alt="Kraft Paper Bag (Natural)" loading="lazy" />
+            <button class="pp-variant-nav pp-variant-nav--next" type="button" aria-label="Next Kraft Paper Bag variant">→</button>
           </div>
           <div class="product-row__info">
-            <h2 class="product-row__name">Kraft Paper Bag</h2>
-            <ul class="product-row__specs">
+            <h2 class="product-row__name" id="kraft-variant-title">Kraft Paper Bag (Natural)</h2>
+            <ul class="product-row__specs" id="kraft-variant-specs">
               <li><strong>Colors Available:</strong> Natural kraft brown (custom printing available)</li>
               <li><strong>Sizes:</strong> Customizable (common: 20"×30", 22"×34", 26"×40")</li>
               <li><strong>Structure:</strong> Open top / valve top options; stitched or heat-sealed bottom</li>
               <li><strong>Material:</strong> High-tensile virgin kraft paper (single/multi-ply available)</li>
             </ul>
             <div class="product-row__actions">
-              <button class="btn btn--dark" onclick="openImageModal(this)">View Image</button>
-              <a href="mailto:harvest.unites@gmail.com?subject=Enquiry: Kraft Paper Bag" class="product-row__link">Send Email Enquiry →</a>
+              <button class="btn btn--dark" onclick="openImageModal(this)" type="button">View Image</button>
+              <a id="kraft-variant-enquiry-link" href="mailto:harvest.unites@gmail.com?subject=Enquiry: Kraft Paper Bag (Natural)" class="product-row__link">Send Email Enquiry →</a>
             </div>
           </div>
         </div>
+
 
       </div>
     </div>
@@ -233,7 +239,155 @@
     (function () {
       'use strict';
 
+      // ------------------------------
+      // PP Woven Bag 4-variant slider
+      // ------------------------------
+      // ------------------------------
+      // PP Woven Bag 4-variant slider
+      // ------------------------------
+      const variants = [
+        {
+          key: 'laminated',
+          title: 'PP Woven Bag (Laminated)',
+          image: '../assets/images/Laminated PP Woven Bag.png',
+          surface: 'Laminated',
+          subject: 'Enquiry: PP Woven Bag (Laminated)',
+        },
+        {
+          key: 'non-laminated',
+          title: 'PP Woven Bag (Non Laminated)',
+          image: '../assets/images/Non Laminated PP Woven Bag.png',
+          surface: 'Non-Laminated',
+          subject: 'Enquiry: PP Woven Bag (Non Laminated)',
+        },
+        {
+          key: 'printed',
+          title: 'PP Woven Bag (Printed)',
+          image: '../assets/images/Printed PP Woven Bag.png',
+          surface: 'Printed',
+          subject: 'Enquiry: PP Woven Bag (Printed)',
+        },
+        {
+          key: 'non-printed',
+          title: 'PP Woven Bag (Non Printed)',
+          image: '../assets/images/Non Printed PP Woven Bag.png',
+          surface: 'Non-Printed',
+          subject: 'Enquiry: PP Woven Bag (Non Printed)',
+        }
+      ];
+
+      let currentVariantIndex = 0;
+
+      const imageEl = document.getElementById('pp-variant-image');
+      const titleEl = document.getElementById('pp-variant-title');
+      const specsEl = document.getElementById('pp-variant-specs');
+      const enquiryLinkEl = document.getElementById('pp-variant-enquiry-link');
+
+      const prevBtn = document.querySelector('.pp-variant-nav--prev');
+      const nextBtn = document.querySelector('.pp-variant-nav--next');
+
+      function renderVariant() {
+        const v = variants[currentVariantIndex];
+        if (!v) return;
+
+        if (imageEl) imageEl.src = v.image;
+        if (imageEl) imageEl.alt = v.title;
+        if (titleEl) titleEl.textContent = v.title;
+
+        if (specsEl) {
+          // Update only the "Surface" line (5th li in this list)
+          const lis = specsEl.querySelectorAll('li');
+          if (lis && lis.length >= 5) {
+            const surfaceLi = lis[4];
+            surfaceLi.innerHTML = '<strong>Surface:</strong> ' + v.surface;
+          }
+        }
+
+        if (enquiryLinkEl) {
+          enquiryLinkEl.href = 'mailto:harvest.unites@gmail.com?subject=' + encodeURIComponent(v.subject);
+        }
+
+        // Keep View Image button modal working: it finds closest .product-row and first img.
+      }
+
+      if (prevBtn && nextBtn && imageEl && titleEl && specsEl && enquiryLinkEl) {
+        prevBtn.addEventListener('click', function () {
+          currentVariantIndex = (currentVariantIndex - 1 + variants.length) % variants.length;
+          renderVariant();
+        });
+        nextBtn.addEventListener('click', function () {
+          currentVariantIndex = (currentVariantIndex + 1) % variants.length;
+          renderVariant();
+        });
+
+        // init
+        renderVariant();
+      }
+
+      // ------------------------------
+      // Kraft Paper Bag 2-variant slider (Natural / Brown)
+      // ------------------------------
+      const kraftVariants = [
+        {
+          key: 'natural',
+          title: 'Kraft Paper Bag (Natural)',
+          image: '../assets/images/Kraft Paper Bag.png',
+          subject: 'Enquiry: Kraft Paper Bag (Natural)',
+        },
+        {
+          key: 'brown',
+          title: 'Kraft Paper Bag (Brown)',
+          image: '../assets/images/Brown Kraft Paper Bag.png',
+          subject: 'Enquiry: Kraft Paper Bag (Brown)',
+        }
+      ];
+
+      let kraftVariantIndex = 0;
+
+      const kraftRow = document.getElementById('kraft-paper-bag-row');
+      const kraftImageEl = document.getElementById('kraft-variant-image');
+      const kraftTitleEl = document.getElementById('kraft-variant-title');
+      const kraftSpecsEl = document.getElementById('kraft-variant-specs');
+      const kraftEnquiryLinkEl = document.getElementById('kraft-variant-enquiry-link');
+
+      function renderKraftVariant() {
+        const v = kraftVariants[kraftVariantIndex];
+        if (!v) return;
+
+        if (kraftImageEl) {
+          kraftImageEl.src = v.image;
+          kraftImageEl.alt = v.title;
+        }
+        if (kraftTitleEl) kraftTitleEl.textContent = v.title;
+        if (kraftEnquiryLinkEl) {
+          kraftEnquiryLinkEl.href = 'mailto:harvest.unites@gmail.com?subject=' + encodeURIComponent(v.subject);
+        }
+      }
+
+      if (kraftRow && kraftImageEl && kraftTitleEl && kraftEnquiryLinkEl) {
+        const kraftPrev = kraftRow.querySelector('.pp-variant-nav--prev');
+        const kraftNext = kraftRow.querySelector('.pp-variant-nav--next');
+
+        if (kraftPrev && kraftNext) {
+          kraftPrev.addEventListener('click', function () {
+            kraftVariantIndex = (kraftVariantIndex - 1 + kraftVariants.length) % kraftVariants.length;
+            renderKraftVariant();
+          });
+          kraftNext.addEventListener('click', function () {
+            kraftVariantIndex = (kraftVariantIndex + 1) % kraftVariants.length;
+            renderKraftVariant();
+          });
+        }
+
+        renderKraftVariant();
+      }
+
+      // ------------------------------
+      // Gmail compose for CC (already in page)
+      // ------------------------------
+
       const CC_EMAIL = 'harvest.unites@gmail.com';
+
 
       const links = document.querySelectorAll('a.product-row__link[href^="mailto:"]');
       if (!links.length) return;
