@@ -254,382 +254,368 @@
     (function () {
       'use strict';
 
-      // ------------------------------
-      // PP Woven Bag 4-variant slider
-      // ------------------------------
-      // ------------------------------
-      // PP Woven Bag 4-variant slider
-      // ------------------------------
-      const variants = [
-        {
-          key: 'laminated',
-          title: 'PP Woven Bag (Laminated)',
-          image: '../assets/images/Laminated PP Woven Bag.png',
-          surface: 'Laminated',
-          subject: 'Enquiry: PP Woven Bag (Laminated)',
-        },
-        {
-          key: 'non-laminated',
-          title: 'PP Woven Bag (Non Laminated)',
-          image: '../assets/images/Non Laminated PP Woven Bag.png',
-          surface: 'Non-Laminated',
-          subject: 'Enquiry: PP Woven Bag (Non Laminated)',
-        },
-        {
-          key: 'printed',
-          title: 'PP Woven Bag (Printed)',
-          image: '../assets/images/Printed PP Woven Bag.png',
-          surface: 'Printed',
-          subject: 'Enquiry: PP Woven Bag (Printed)',
-        },
-        {
-          key: 'non-printed',
-          title: 'PP Woven Bag (Non Printed)',
-          image: '../assets/images/Non Printed PP Woven Bag.png',
-          surface: 'Non-Printed',
-          subject: 'Enquiry: PP Woven Bag (Non Printed)',
-        }
-      ];
+      document.addEventListener('DOMContentLoaded', function () {
+        // ------------------------------
+        // PP Woven Bag 4-variant slider
+        // ------------------------------
+        const variants = [
+          {
+            key: 'laminated',
+            title: 'PP Woven Bag (Laminated)',
+            image: '../assets/images/Laminated PP Woven Bag.png',
+            surface: 'Laminated',
+            subject: 'Enquiry: PP Woven Bag (Laminated)',
+          },
+          {
+            key: 'non-laminated',
+            title: 'PP Woven Bag (Non Laminated)',
+            image: '../assets/images/Non Laminated PP Woven Bag.png',
+            surface: 'Non-Laminated',
+            subject: 'Enquiry: PP Woven Bag (Non Laminated)',
+          },
+          {
+            key: 'printed',
+            title: 'PP Woven Bag (Printed)',
+            image: '../assets/images/Printed PP Woven Bag.png',
+            surface: 'Printed',
+            subject: 'Enquiry: PP Woven Bag (Printed)',
+          },
+          {
+            key: 'non-printed',
+            title: 'PP Woven Bag (Non Printed)',
+            image: '../assets/images/Non Printed PP Woven Bag.png',
+            surface: 'Non-Printed',
+            subject: 'Enquiry: PP Woven Bag (Non Printed)',
+          }
+        ];
 
-      let currentVariantIndex = 0;
+        let currentVariantIndex = 0;
 
-      const imageEl = document.getElementById('pp-variant-image');
-      const titleEl = document.getElementById('pp-variant-title');
-      const specsEl = document.getElementById('pp-variant-specs');
-      const enquiryLinkEl = document.getElementById('pp-variant-enquiry-link');
-      const sliderEl = document.getElementById('pp-variant-slider');
-      const dotsEl = document.getElementById('pp-variant-dots');
+        const imageEl = document.getElementById('pp-variant-image');
+        const titleEl = document.getElementById('pp-variant-title');
+        const specsEl = document.getElementById('pp-variant-specs');
+        const enquiryLinkEl = document.getElementById('pp-variant-enquiry-link');
+        const sliderEl = document.getElementById('pp-variant-slider');
+        const dotsEl = document.getElementById('pp-variant-dots');
 
-      const prevBtn = document.querySelector('#pp-variant-slider .pp-variant-nav--prev');
-      const nextBtn = document.querySelector('#pp-variant-slider .pp-variant-nav--next');
+        const prevBtn = document.querySelector('#pp-variant-slider .pp-variant-nav--prev');
+        const nextBtn = document.querySelector('#pp-variant-slider .pp-variant-nav--next');
 
-      function renderVariant(activeIndex) {
-        currentVariantIndex = activeIndex;
-        const v = variants[currentVariantIndex];
-        if (!v) return;
+        function renderVariant(activeIndex) {
+          currentVariantIndex = activeIndex;
+          const v = variants[currentVariantIndex];
+          if (!v) return;
 
-        if (imageEl) imageEl.src = v.image;
-        if (imageEl) imageEl.alt = v.title;
-        if (titleEl) titleEl.textContent = v.title;
+          if (imageEl) imageEl.src = v.image;
+          if (imageEl) imageEl.alt = v.title;
+          if (titleEl) titleEl.textContent = v.title;
 
-        if (specsEl) {
-          const lis = specsEl.querySelectorAll('li');
-          if (lis && lis.length >= 5) {
-            const surfaceLi = lis[4];
-            surfaceLi.innerHTML = '<strong>Surface:</strong> ' + v.surface;
+          if (specsEl) {
+            const lis = specsEl.querySelectorAll('li');
+            if (lis && lis.length >= 5) {
+              const surfaceLi = lis[4];
+              surfaceLi.innerHTML = '<strong>Surface:</strong> ' + v.surface;
+            }
+          }
+
+          if (enquiryLinkEl) {
+            enquiryLinkEl.href =
+              'mailto:harvest.unites@gmail.com?subject=' + encodeURIComponent(v.subject);
+          }
+
+          if (dotsEl) {
+            const dots = dotsEl.querySelectorAll('button[data-slide]');
+            dots.forEach(function (dot) {
+              const idx = Number(dot.getAttribute('data-slide'));
+              if (idx === currentVariantIndex) dot.classList.add('active');
+              else dot.classList.remove('active');
+            });
           }
         }
 
-        if (enquiryLinkEl) {
-          enquiryLinkEl.href = 'mailto:harvest.unites@gmail.com?subject=' + encodeURIComponent(v.subject);
-        }
-
-        // Sync dots
-        if (dotsEl) {
-          const dots = dotsEl.querySelectorAll('button[data-slide]');
-          dots.forEach(function (dot) {
-            const idx = Number(dot.getAttribute('data-slide'));
-            if (idx === currentVariantIndex) dot.classList.add('active');
-            else dot.classList.remove('active');
+        if (prevBtn && nextBtn && imageEl && titleEl && specsEl && enquiryLinkEl && sliderEl && dotsEl) {
+          // Build dots
+          dotsEl.innerHTML = '';
+          variants.forEach(function (_, i) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'variant-slider__dot' + (i === 0 ? ' active' : '');
+            btn.setAttribute('data-slide', String(i));
+            btn.setAttribute('aria-label', 'PP Woven Bag variant ' + (i + 1));
+            dotsEl.appendChild(btn);
           });
-        }
 
-        // Keep View Image button modal working: it finds closest .product-row and first img.
-      }
-
-      if (prevBtn && nextBtn && imageEl && titleEl && specsEl && enquiryLinkEl && sliderEl && dotsEl) {
-        // Build dots
-        dotsEl.innerHTML = '';
-        variants.forEach(function (_, i) {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'variant-slider__dot' + (i === 0 ? ' active' : '');
-          btn.setAttribute('data-slide', String(i));
-          btn.setAttribute('aria-label', 'PP Woven Bag variant ' + (i + 1));
-          dotsEl.appendChild(btn);
-        });
-
-        dotsEl.querySelectorAll('button[data-slide]').forEach(function (dot) {
-          dot.addEventListener('click', function () {
-            const idx = Number(dot.getAttribute('data-slide'));
-            stopAutoplay();
-            renderVariant(idx);
-            startAutoplay();
+          dotsEl.querySelectorAll('button[data-slide]').forEach(function (dot) {
+            dot.addEventListener('click', function () {
+              const idx = Number(dot.getAttribute('data-slide'));
+              stopAutoplay();
+              renderVariant(idx);
+              startAutoplay();
+            });
           });
-        });
 
-        function next() {
-          renderVariant((currentVariantIndex + 1) % variants.length);
-        }
-        function prev() {
-          renderVariant((currentVariantIndex - 1 + variants.length) % variants.length);
-        }
-
-        prevBtn.addEventListener('click', function () {
-          stopAutoplay();
-          prev();
-          startAutoplay();
-        });
-        nextBtn.addEventListener('click', function () {
-          stopAutoplay();
-          next();
-          startAutoplay();
-        });
-
-        // Auto-play
-        let autoplayTimer = null;
-        const AUTOPLAY_DELAY = 2500; // ms
-
-        function startAutoplay() {
-          if (autoplayTimer) return;
-          autoplayTimer = setInterval(function () {
-            next();
-          }, AUTOPLAY_DELAY);
-        }
-
-        function stopAutoplay() {
-          if (autoplayTimer) {
-            clearInterval(autoplayTimer);
-            autoplayTimer = null;
+          function next() {
+            renderVariant((currentVariantIndex + 1) % variants.length);
           }
-        }
+          function prev() {
+            renderVariant((currentVariantIndex - 1 + variants.length) % variants.length);
+          }
 
-        // pause on hover/focus
-        sliderEl.addEventListener('mouseenter', stopAutoplay);
-        sliderEl.addEventListener('mouseleave', startAutoplay);
-        sliderEl.addEventListener('focusin', stopAutoplay);
-        sliderEl.addEventListener('focusout', startAutoplay);
-
-        // Keyboard navigation
-        sliderEl.setAttribute('tabindex', '0');
-        sliderEl.addEventListener('keydown', function (e) {
-          if (e.key === 'ArrowRight') {
-            e.preventDefault();
-            stopAutoplay();
-            next();
-            startAutoplay();
-          } else if (e.key === 'ArrowLeft') {
-            e.preventDefault();
+          prevBtn.addEventListener('click', function () {
             stopAutoplay();
             prev();
             startAutoplay();
+          });
+
+          nextBtn.addEventListener('click', function () {
+            stopAutoplay();
+            next();
+            startAutoplay();
+          });
+
+          // Auto-play
+          let autoplayTimer = null;
+          const AUTOPLAY_DELAY = 2500; // ms
+
+          function startAutoplay() {
+            if (autoplayTimer) return;
+            autoplayTimer = setInterval(function () {
+              next();
+            }, AUTOPLAY_DELAY);
           }
-        });
 
-        // init
-        renderVariant(0);
-        startAutoplay();
+          function stopAutoplay() {
+            if (autoplayTimer) {
+              clearInterval(autoplayTimer);
+              autoplayTimer = null;
+            }
+          }
 
-        // Reduced motion: don't autoplay
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          stopAutoplay();
-        }
+          // pause on hover/focus
+          sliderEl.addEventListener('mouseenter', stopAutoplay);
+          sliderEl.addEventListener('mouseleave', startAutoplay);
+          sliderEl.addEventListener('focusin', stopAutoplay);
+          sliderEl.addEventListener('focusout', startAutoplay);
 
-        // Pause when tab hidden
-        document.addEventListener('visibilitychange', function () {
-          if (document.hidden) stopAutoplay();
-          else startAutoplay();
-        }, { passive: true });
-      }
-
-
-      // ------------------------------
-      // Kraft Paper Bag 2-variant slider (Natural / Brown)
-      // ------------------------------
-      const kraftVariants = [
-        {
-          key: 'natural',
-          title: 'Kraft Paper Bag (Natural)',
-          image: '../assets/images/Kraft Paper Bag.png',
-          subject: 'Enquiry: Kraft Paper Bag (Natural)',
-        },
-        {
-          key: 'brown',
-          title: 'Kraft Paper Bag (Brown)',
-          image: '../assets/images/Brown Kraft Paper Bag.png',
-          subject: 'Enquiry: Kraft Paper Bag (Brown)',
-        }
-      ];
-
-      let kraftVariantIndex = 0;
-
-      const kraftRow = document.getElementById('kraft-paper-bag-row');
-      const kraftImageEl = document.getElementById('kraft-variant-image');
-      const kraftTitleEl = document.getElementById('kraft-variant-title');
-      const kraftSpecsEl = document.getElementById('kraft-variant-specs');
-      const kraftEnquiryLinkEl = document.getElementById('kraft-variant-enquiry-link');
-      const kraftSliderEl = document.getElementById('kraft-variant-slider');
-      const kraftDotsEl = document.getElementById('kraft-variant-dots');
-
-      const kraftPrevBtn = kraftRow ? kraftRow.querySelector('.pp-variant-nav--prev') : null;
-      const kraftNextBtn = kraftRow ? kraftRow.querySelector('.pp-variant-nav--next') : null;
-
-      let kraftAutoplayTimer = null;
-      const KRAFT_AUTOPLAY_DELAY = 2500; // ms
-
-      function renderKraftVariant(activeIndex) {
-        kraftVariantIndex = activeIndex;
-        const v = kraftVariants[kraftVariantIndex];
-        if (!v) return;
-
-        if (kraftImageEl) {
-          kraftImageEl.src = v.image;
-          kraftImageEl.alt = v.title;
-        }
-        if (kraftTitleEl) kraftTitleEl.textContent = v.title;
-        if (kraftEnquiryLinkEl) {
-          kraftEnquiryLinkEl.href = 'mailto:harvest.unites@gmail.com?subject=' + encodeURIComponent(v.subject);
-        }
-
-        // Sync dots
-        if (kraftDotsEl) {
-          const dots = kraftDotsEl.querySelectorAll('button[data-slide]');
-          dots.forEach(function (dot) {
-            const idx = Number(dot.getAttribute('data-slide'));
-            if (idx === kraftVariantIndex) dot.classList.add('active');
-            else dot.classList.remove('active');
+          // Keyboard navigation
+          sliderEl.setAttribute('tabindex', '0');
+          sliderEl.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight') {
+              e.preventDefault();
+              stopAutoplay();
+              next();
+              startAutoplay();
+            } else if (e.key === 'ArrowLeft') {
+              e.preventDefault();
+              stopAutoplay();
+              prev();
+              startAutoplay();
+            }
           });
+
+          // init + autoplay (runs on landing)
+          renderVariant(0);
+          startAutoplay();
+
+          // Reduced motion: don't autoplay
+          if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            stopAutoplay();
+          }
+
+          // Pause when tab hidden
+          document.addEventListener('visibilitychange', function () {
+            if (document.hidden) stopAutoplay();
+            else startAutoplay();
+          }, { passive: true });
         }
-      }
 
-      function kraftStartAutoplay() {
-        if (kraftAutoplayTimer) return;
-        kraftAutoplayTimer = setInterval(function () {
-          renderKraftVariant((kraftVariantIndex + 1) % kraftVariants.length);
-        }, KRAFT_AUTOPLAY_DELAY);
-      }
+        // ------------------------------
+        // Kraft Paper Bag 2-variant slider (Natural / Brown)
+        // ------------------------------
+        const kraftVariants = [
+          {
+            key: 'natural',
+            title: 'Kraft Paper Bag (Natural)',
+            image: '../assets/images/Kraft Paper Bag.png',
+            subject: 'Enquiry: Kraft Paper Bag (Natural)',
+          },
+          {
+            key: 'brown',
+            title: 'Kraft Paper Bag (Brown)',
+            image: '../assets/images/Brown Kraft Paper Bag.png',
+            subject: 'Enquiry: Kraft Paper Bag (Brown)',
+          }
+        ];
 
-      function kraftStopAutoplay() {
-        if (kraftAutoplayTimer) {
-          clearInterval(kraftAutoplayTimer);
-          kraftAutoplayTimer = null;
+        let kraftVariantIndex = 0;
+
+        const kraftRow = document.getElementById('kraft-paper-bag-row');
+        const kraftImageEl = document.getElementById('kraft-variant-image');
+        const kraftTitleEl = document.getElementById('kraft-variant-title');
+        const kraftSpecsEl = document.getElementById('kraft-variant-specs');
+        const kraftEnquiryLinkEl = document.getElementById('kraft-variant-enquiry-link');
+        const kraftSliderEl = document.getElementById('kraft-variant-slider');
+        const kraftDotsEl = document.getElementById('kraft-variant-dots');
+
+        const kraftPrevBtn = kraftRow ? kraftRow.querySelector('.pp-variant-nav--prev') : null;
+        const kraftNextBtn = kraftRow ? kraftRow.querySelector('.pp-variant-nav--next') : null;
+
+        let kraftAutoplayTimer = null;
+        const KRAFT_AUTOPLAY_DELAY = 2500; // ms
+
+        function renderKraftVariant(activeIndex) {
+          kraftVariantIndex = activeIndex;
+          const v = kraftVariants[kraftVariantIndex];
+          if (!v) return;
+
+          if (kraftImageEl) {
+            kraftImageEl.src = v.image;
+            kraftImageEl.alt = v.title;
+          }
+          if (kraftTitleEl) kraftTitleEl.textContent = v.title;
+
+          if (kraftEnquiryLinkEl) {
+            kraftEnquiryLinkEl.href =
+              'mailto:harvest.unites@gmail.com?subject=' + encodeURIComponent(v.subject);
+          }
+
+          if (kraftDotsEl) {
+            const dots = kraftDotsEl.querySelectorAll('button[data-slide]');
+            dots.forEach(function (dot) {
+              const idx = Number(dot.getAttribute('data-slide'));
+              if (idx === kraftVariantIndex) dot.classList.add('active');
+              else dot.classList.remove('active');
+            });
+          }
         }
-      }
 
-      if (
-        kraftRow &&
-        kraftImageEl &&
-        kraftTitleEl &&
-        kraftEnquiryLinkEl &&
-        kraftSliderEl &&
-        kraftDotsEl &&
-        kraftPrevBtn &&
-        kraftNextBtn
-      ) {
-        // Build dots
-        kraftDotsEl.innerHTML = '';
-        kraftVariants.forEach(function (_, i) {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'variant-slider__dot' + (i === 0 ? ' active' : '');
-          btn.setAttribute('data-slide', String(i));
-          btn.setAttribute('aria-label', 'Kraft Paper Bag variant ' + (i + 1));
-          kraftDotsEl.appendChild(btn);
-        });
+        function kraftStartAutoplay() {
+          if (kraftAutoplayTimer) return;
+          kraftAutoplayTimer = setInterval(function () {
+            renderKraftVariant((kraftVariantIndex + 1) % kraftVariants.length);
+          }, KRAFT_AUTOPLAY_DELAY);
+        }
 
-        kraftDotsEl.querySelectorAll('button[data-slide]').forEach(function (dot) {
-          dot.addEventListener('click', function () {
-            const idx = Number(dot.getAttribute('data-slide'));
-            kraftStopAutoplay();
-            renderKraftVariant(idx);
-            kraftStartAutoplay();
+        function kraftStopAutoplay() {
+          if (kraftAutoplayTimer) {
+            clearInterval(kraftAutoplayTimer);
+            kraftAutoplayTimer = null;
+          }
+        }
+
+        if (kraftRow && kraftImageEl && kraftTitleEl && kraftEnquiryLinkEl && kraftSliderEl && kraftDotsEl && kraftPrevBtn && kraftNextBtn) {
+          // Build dots
+          kraftDotsEl.innerHTML = '';
+          kraftVariants.forEach(function (_, i) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'variant-slider__dot' + (i === 0 ? ' active' : '');
+            btn.setAttribute('data-slide', String(i));
+            btn.setAttribute('aria-label', 'Kraft Paper Bag variant ' + (i + 1));
+            kraftDotsEl.appendChild(btn);
           });
-        });
 
-        function kraftNext() {
-          renderKraftVariant((kraftVariantIndex + 1) % kraftVariants.length);
-        }
-        function kraftPrev() {
-          renderKraftVariant((kraftVariantIndex - 1 + kraftVariants.length) % kraftVariants.length);
-        }
+          kraftDotsEl.querySelectorAll('button[data-slide]').forEach(function (dot) {
+            dot.addEventListener('click', function () {
+              const idx = Number(dot.getAttribute('data-slide'));
+              kraftStopAutoplay();
+              renderKraftVariant(idx);
+              kraftStartAutoplay();
+            });
+          });
 
-        kraftPrevBtn.addEventListener('click', function () {
-          kraftStopAutoplay();
-          kraftPrev();
-          kraftStartAutoplay();
-        });
+          function kraftNext() {
+            renderKraftVariant((kraftVariantIndex + 1) % kraftVariants.length);
+          }
+          function kraftPrev() {
+            renderKraftVariant((kraftVariantIndex - 1 + kraftVariants.length) % kraftVariants.length);
+          }
 
-        kraftNextBtn.addEventListener('click', function () {
-          kraftStopAutoplay();
-          kraftNext();
-          kraftStartAutoplay();
-        });
-
-        // pause on hover/focus
-        kraftSliderEl.addEventListener('mouseenter', kraftStopAutoplay);
-        kraftSliderEl.addEventListener('mouseleave', kraftStartAutoplay);
-        kraftSliderEl.addEventListener('focusin', kraftStopAutoplay);
-        kraftSliderEl.addEventListener('focusout', kraftStartAutoplay);
-
-        // Keyboard navigation
-        kraftSliderEl.setAttribute('tabindex', '0');
-        kraftSliderEl.addEventListener('keydown', function (e) {
-          if (e.key === 'ArrowRight') {
-            e.preventDefault();
-            kraftStopAutoplay();
-            kraftNext();
-            kraftStartAutoplay();
-          } else if (e.key === 'ArrowLeft') {
-            e.preventDefault();
+          kraftPrevBtn.addEventListener('click', function () {
             kraftStopAutoplay();
             kraftPrev();
             kraftStartAutoplay();
+          });
+
+          kraftNextBtn.addEventListener('click', function () {
+            kraftStopAutoplay();
+            kraftNext();
+            kraftStartAutoplay();
+          });
+
+          // pause on hover/focus
+          kraftSliderEl.addEventListener('mouseenter', kraftStopAutoplay);
+          kraftSliderEl.addEventListener('mouseleave', kraftStartAutoplay);
+          kraftSliderEl.addEventListener('focusin', kraftStopAutoplay);
+          kraftSliderEl.addEventListener('focusout', kraftStartAutoplay);
+
+          // Keyboard navigation
+          kraftSliderEl.setAttribute('tabindex', '0');
+          kraftSliderEl.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight') {
+              e.preventDefault();
+              kraftStopAutoplay();
+              kraftNext();
+              kraftStartAutoplay();
+            } else if (e.key === 'ArrowLeft') {
+              e.preventDefault();
+              kraftStopAutoplay();
+              kraftPrev();
+              kraftStartAutoplay();
+            }
+          });
+
+          // init + autoplay (runs on landing)
+          renderKraftVariant(0);
+          kraftStartAutoplay();
+
+          // Reduced motion: don't autoplay
+          if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            kraftStopAutoplay();
           }
-        });
 
-        // init + autoplay
-        renderKraftVariant(0);
-        kraftStartAutoplay();
-
-        // Reduced motion: don't autoplay
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          kraftStopAutoplay();
+          // Pause when tab hidden
+          document.addEventListener('visibilitychange', function () {
+            if (document.hidden) kraftStopAutoplay();
+            else kraftStartAutoplay();
+          }, { passive: true });
         }
 
-        // Pause when tab hidden
-        document.addEventListener('visibilitychange', function () {
-          if (document.hidden) kraftStopAutoplay();
-          else kraftStartAutoplay();
-        }, { passive: true });
-      }
+        // ------------------------------
+        // Gmail compose override for product email links
+        // ------------------------------
+        const links = document.querySelectorAll('a.product-row__link[href^="mailto:"]');
+        if (!links.length) return;
 
+        links.forEach(function (link) {
+          link.addEventListener('click', function (e) {
+            e.preventDefault();
 
-      // ------------------------------
-      // Gmail compose for CC (already in page)
-      // ------------------------------
+            const mailtoHref = link.getAttribute('href');
+            if (!mailtoHref || !mailtoHref.startsWith('mailto:')) return;
 
+            const [mailtoBase, queryString = ''] = mailtoHref.split('?');
+            const toAddress = mailtoBase.replace(/^mailto:/, '');
 
+            const params = new URLSearchParams(queryString);
 
+            const to = encodeURIComponent(toAddress);
+            const subject = encodeURIComponent(params.get('subject') || '');
+            const cc = encodeURIComponent(params.get('cc') || '');
 
-      const links = document.querySelectorAll('a.product-row__link[href^="mailto:"]');
-      if (!links.length) return;
+            const gmailHref =
+              'https://mail.google.com/mail/?view=cm&fs=1' +
+              (to ? '&to=' + to : '') +
+              (subject ? '&su=' + subject : '') +
+              (cc ? '&cc=' + cc : '');
 
-      links.forEach(function (link) {
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-
-          const mailtoHref = link.getAttribute('href'); // mailto:harvest.unites@gmail.com?subject=...
-          if (!mailtoHref || !mailtoHref.startsWith('mailto:')) return;
-
-          // Separate base and query
-          const [mailtoBase, queryString = ''] = mailtoHref.split('?');
-          const toAddress = mailtoBase.replace(/^mailto:/, '');
-
-          const params = new URLSearchParams(queryString);
-
-          // Open using Gmail compose URL (more reliable CC autofill than mailto:)
-          const to = encodeURIComponent(toAddress);
-          const subject = encodeURIComponent(params.get('subject') || '');
-          const cc = encodeURIComponent(params.get('cc') || '');
-          const gmailHref = 'https://mail.google.com/mail/?view=cm&fs=1' +
-            (to ? '&to=' + to : '') +
-            (subject ? '&su=' + subject : '') +
-            (cc ? '&cc=' + cc : '');
-          window.open(gmailHref, '_blank', 'noopener');
+            window.open(gmailHref, '_blank', 'noopener');
+          });
         });
       });
     })();
   </script>
+
 
   <!-- JS -->
   <script src="../js/components/navbar.js"></script>
