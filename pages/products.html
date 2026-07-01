@@ -294,7 +294,41 @@
             image: '../assets/images/Non Printed PP Woven Bag.png',
             surface: 'Non-Printed',
             subject: 'Enquiry: PP Woven Bag (Non Printed)',
-          }
+          },
+          {
+            key: 'laminated-block-bottom',
+            title: 'PP Woven Laminated Block Bottom Bag',
+            image: '../assets/images/PP Woven Laminated Block Bottom Bag.png',
+            surface: 'Laminated',
+            lips: 'Block Bottom',
+            subject: 'Enquiry: PP Woven Laminated Block Bottom Bag',
+          },
+          {
+            key: 'non-laminated-block-bottom',
+            title: 'PP Woven Non Laminated Block Bottom Bag',
+            image: '../assets/images/PP Woven Non Laminated Block Bottom Bag.png',
+            surface: 'Non-Laminated',
+            lips: 'Block Bottom',
+            subject: 'Enquiry: PP Woven Non Laminated Block Bottom Bag',
+          },
+          {
+            key: 'laminated-open-valve',
+            title: 'PP Woven Laminated Open Valve Bag',
+            image: '../assets/images/PP Woven Laminated Open Valve Bag.png',
+            surface: 'Laminated',
+            lips: 'Open Valve',
+            subject: 'Enquiry: PP Woven Laminated Open Valve Bag',
+            onlyConditionNew: true,
+          },
+          {
+            key: 'non-laminated-open-valve',
+            title: 'PP Woven Non-Laminated Open Valve Bag',
+            image: '../assets/images/PP Woven Non-Laminated Open Valve Bag.jpeg',
+            surface: 'Non-Laminated',
+            lips: 'Open Valve',
+            subject: 'Enquiry: PP Woven Non-Laminated Open Valve Bag',
+            onlyConditionNew: true,
+          },
         ];
 
         let currentVariantIndex = 0;
@@ -320,9 +354,19 @@
 
           if (specsEl) {
             const lis = specsEl.querySelectorAll('li');
-            if (lis && lis.length >= 5) {
-              const surfaceLi = lis[4];
-              surfaceLi.innerHTML = '<strong>Surface:</strong> ' + v.surface;
+
+            if (lis && lis.length) {
+              const surfaceLi = Array.from(lis).find(li => li.innerHTML.includes('<strong>Surface:</strong>'));
+              if (surfaceLi) surfaceLi.innerHTML = '<strong>Surface:</strong> ' + v.surface;
+
+              const conditionLi = Array.from(lis).find(li => li.innerHTML.includes('<strong>Condition:</strong>'));
+              if (conditionLi) {
+                if (v.onlyConditionNew) {
+                  conditionLi.innerHTML = '<strong>Condition:</strong> New';
+                } else {
+                  conditionLi.innerHTML = '<strong>Condition:</strong> New / Used';
+                }
+              }
             }
           }
 
