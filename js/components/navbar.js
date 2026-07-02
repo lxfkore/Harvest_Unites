@@ -23,6 +23,7 @@
 
   root.innerHTML = `
     <header class="${navbarClass}" id="navbar">
+
       <div class="navbar__inner container">
 
         <a href="${base}index.html" class="navbar__logo">
@@ -40,11 +41,12 @@
           <a href="${contactHref}" class="navbar__link">Contact Us</a>
         </nav>
 
-        <button class="navbar__hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+        <button class="navbar__hamburger" id="hamburgerBtn" type="button" aria-label="Toggle menu" aria-expanded="false">
           <span></span>
           <span></span>
           <span></span>
         </button>
+
 
       </div>
 

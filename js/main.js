@@ -28,12 +28,16 @@
   /* --------------------------------------------------------------------------
      Hamburger: mobile menu toggle
      -------------------------------------------------------------------------- */
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const mobileMenu   = document.getElementById('mobileMenu');
+  let hamburgerBtn = document.getElementById('hamburgerBtn');
+  let mobileMenu = document.getElementById('mobileMenu');
+  let mobileOverlay = document.getElementById('mobileOverlay');
 
   function toggleMobileMenu(isOpen) {
+    hamburgerBtn = document.getElementById('hamburgerBtn');
+    mobileMenu = document.getElementById('mobileMenu');
+    mobileOverlay = document.getElementById('mobileOverlay');
+
     if (!hamburgerBtn || !mobileMenu) return;
-    const overlay = document.getElementById('mobileOverlay');
 
     hamburgerBtn.classList.toggle('open', isOpen);
     hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
@@ -41,36 +45,60 @@
     mobileMenu.classList.toggle('open', isOpen);
     mobileMenu.setAttribute('aria-hidden', String(!isOpen));
 
-    if (overlay) {
-      overlay.classList.toggle('open', isOpen);
-      overlay.setAttribute('aria-hidden', String(!isOpen));
+    if (mobileOverlay) {
+      mobileOverlay.classList.toggle('open', isOpen);
+      mobileOverlay.setAttribute('aria-hidden', String(!isOpen));
     }
   }
 
+  function bindMobileNavHandlers() {
+    hamburgerBtn = document.getElementById('hamburgerBtn');
+    mobileMenu = document.getElementById('mobileMenu');
+    mobileOverlay = document.getElementById('mobileOverlay');
 
-  if (hamburgerBtn) {
+    if (!hamburgerBtn || !mobileMenu) return false;
+
+    // Prevent double-binding
+    if (hamburgerBtn.dataset.bound === 'true') return true;
+
     hamburgerBtn.addEventListener('click', function () {
       const isCurrentlyOpen = hamburgerBtn.classList.contains('open');
       toggleMobileMenu(!isCurrentlyOpen);
     });
-  }
 
-  // Close mobile menu when a link is clicked
-  if (mobileMenu) {
     mobileMenu.querySelectorAll('.navbar__mobile-link').forEach(function (link) {
       link.addEventListener('click', function () {
         toggleMobileMenu(false);
       });
     });
+
+    // Overlay click close
+    document.addEventListener('click', function (e) {
+      mobileOverlay = document.getElementById('mobileOverlay');
+      if (mobileOverlay && e.target === mobileOverlay) {
+        toggleMobileMenu(false);
+      }
+    });
+
+    hamburgerBtn.dataset.bound = 'true';
+    return true;
   }
 
-  // Close mobile menu when clicking outside
-  document.addEventListener('click', function (e) {
-    if (!navbar) return;
-    if (!navbar.contains(e.target)) {
-      toggleMobileMenu(false);
-    }
-  });
+  // Navbar markup is injected by navbar.js. Some pages load main.js before navbar.js,
+  // so we need to bind after elements appear.
+  if (!bindMobileNavHandlers()) {
+    const maxWaitMs = 2500;
+    const startedAt = Date.now();
+
+    (function waitForNavbar() {
+      if (bindMobileNavHandlers()) return;
+      if (Date.now() - startedAt > maxWaitMs) return;
+      window.requestAnimationFrame(waitForNavbar);
+    })();
+  }
+
+
+
 
 
   /* --------------------------------------------------------------------------
