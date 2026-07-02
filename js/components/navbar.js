@@ -48,12 +48,14 @@
 
       </div>
 
+      <div class="navbar__mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
       <nav class="navbar__mobile-menu" id="mobileMenu" aria-hidden="true">
         <a href="${aboutHref}" class="navbar__mobile-link">About Us</a>
         <a href="${productsHref}" class="navbar__mobile-link">Our Products</a>
         <a href="${btsHref}" class="navbar__mobile-link">Behind the Scenes</a>
         <a href="${contactHref}" class="navbar__mobile-link">Contact Us</a>
       </nav>
+
     </header>
   `;
 })();

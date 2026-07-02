@@ -33,11 +33,20 @@
 
   function toggleMobileMenu(isOpen) {
     if (!hamburgerBtn || !mobileMenu) return;
+    const overlay = document.getElementById('mobileOverlay');
+
     hamburgerBtn.classList.toggle('open', isOpen);
     hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
+
     mobileMenu.classList.toggle('open', isOpen);
     mobileMenu.setAttribute('aria-hidden', String(!isOpen));
+
+    if (overlay) {
+      overlay.classList.toggle('open', isOpen);
+      overlay.setAttribute('aria-hidden', String(!isOpen));
+    }
   }
+
 
   if (hamburgerBtn) {
     hamburgerBtn.addEventListener('click', function () {
