@@ -70,7 +70,7 @@
 
       <div class="footer__bottom">
         <div class="container">
-          <p>Copyright 2026 · Harvest Unites Enterprise Sdn Bhd, All Rights Reserved</p>
+          <p>Copyright 2026 · Harvest Unites Enterprise Sdn Bhd, All Rights Reserved.</p>
         </div>
       </div>
     </footer>
