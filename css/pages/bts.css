@@ -225,3 +225,20 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Empty state
+   -------------------------------------------------------------------------- */
+.bts-empty-state {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+}
+
+.bts-empty-state p {
+  color: var(--color-text-mid);
+  font-size: var(--text-sm);
+  margin: 0;
+}
