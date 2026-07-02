@@ -29,7 +29,7 @@
 
             <li>
               <svg class="footer__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C9.61 21 3 14.39 3 6a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.01l-2.2 2.21z"/></svg>
-              <a href="tel:+60125002383">+6012 500 2383</a>
+              <a href="tel:+60125002383">+6012 500 6389</a>
             </li>
 
             <li>
@@ -54,12 +54,8 @@
         <div class="footer__social">
           <h3 class="footer__col-title">Follow Us</h3>
           <div class="footer__social-icons">
-            <a href="#" class="footer__social-btn" aria-label="Facebook">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-            </a>
-
             <a
-              href="https://wa.me/60125002383"
+              href="https://wa.me/60125006389"
               class="footer__social-btn"
               aria-label="WhatsApp"
               target="_blank"
